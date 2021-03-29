@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan(basePackages = "com.amq.simple")
-@Import({ MessageConfiguration.class })
+@Import({ AMQConnectionFactoryConfig.class })
 public class AppConfig {
 
 }

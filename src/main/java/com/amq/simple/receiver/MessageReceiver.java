@@ -16,21 +16,14 @@ public class MessageReceiver {
     @Autowired
     MessageConverter messageConverter;
 
-    public Product receiveMessage()
-    {
-        try
-        {
-            /*
-             * Here we receive the message.
-             */
+    public Product receiveMessage() {
+        try {
             Message message = jmsTemplate.receive();
-            System.out.println(message);;
+
             Product product = (Product) messageConverter.fromMessage(message);
             return product;
 
-        }
-        catch (Exception exe)
-        {
+        } catch (Exception exe) {
             exe.printStackTrace();
         }
 

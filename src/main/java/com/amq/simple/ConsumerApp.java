@@ -2,25 +2,18 @@ package com.amq.simple;
 
 import com.amq.simple.config.AppConfig;
 import com.amq.simple.model.Product;
-import com.amq.simple.producer.MessageSender;
+import com.amq.simple.receiver.MessageReceiver;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
-public class MessageProducerApp {
+public class ConsumerApp {
     public static void main(String[] args) {
-
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(
                 AppConfig.class);
 
-        MessageSender messageSender = context.getBean(MessageSender.class);
-
-        Product product = new Product();
-        product.setProductId(888);
-        product.setName("TV");
-        product.setQuantity(2);
-
-        messageSender.sendMessage(product);
-        System.out.println("Message has been sent successfully...");
+        MessageReceiver messageReceiver = (MessageReceiver) context.getBean("messageReceiver");
+        Product product = messageReceiver.receiveMessage();
+        System.out.println("Message received : " + product);
 
         ((AbstractApplicationContext) context).close();
     }
